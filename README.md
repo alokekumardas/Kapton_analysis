@@ -36,11 +36,11 @@ In the scan folder, 2 folders will be created, "ResultsShape" and "PlotsShape". 
 Also a DB upload is possible, however this is optimized for our DB and will need changes/modifications from your side, if you want to use it.
 
 ### Structure of the software
-KaptonBatchmode.py : Main program, calls especially Kapton_Analyze_Batch.py
-Kapton_Analyze_batch.py: Here, the analysis class is defined. I would say the most important methods are the openScanfile and the write_table methods. The first opens the file and calls analysis methods defined in the kaptondetector.py script. The latter defines which results are written to the csv results file.
-Helper folder:
-kaptondetector.py : Contains class definitions + methods for the Scan and the Kaptonstrip analysis.
-kaptonconstants.py: Here, the nominal kaptonsizes and the acceptable tolerance window as well as the RGB filter settings used by the kaptondetector.py script are defined. HERE, YOU WILL DEFINITELY HAVE TO OPTIMIZE FOR YOUR USE CASE! Be also aware that the tolerance window used is no official specification, but chosen by us in a way we thought it makes sense. 
+* KaptonBatchmode.py : Main program, calls especially Kapton_Analyze_Batch.py
+* Kapton_Analyze_batch.py: Here, the analysis class is defined. I would say the most important methods are the openScanfile and the write_table methods. The first opens the file and calls analysis methods defined in the kaptondetector.py script. The latter defines which results are written to the csv results file.
+* *Helper folder:*
+* kaptondetector.py : Contains class definitions + methods for the Scan and the Kaptonstrip analysis.
+* kaptonconstants.py: Here, the nominal kaptonsizes and the acceptable tolerance window as well as the RGB filter settings used by the kaptondetector.py script are defined. HERE, YOU WILL DEFINITELY HAVE TO OPTIMIZE FOR YOUR USE CASE! Be also aware that the tolerance window used is no official specification, but chosen by us in a way we thought it makes sense. 
 
 ### Analysis method
 To get the Kaptonstrip length, the image is filtered by applying RGB filters. There are separate ones for the templates and the strips. Using OpenCV methods, a contour around each strip is found and the smallest rectangle around this contour is found. This is then used to get the strip size and width in pixels. Using the known template sizes, one can calibrate from pixels to mm. For details please have a look at the PhD thesis of Tim Ziemons (add link!!).
