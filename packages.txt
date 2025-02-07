@@ -1,0 +1,32 @@
+# this lists requirements needed to execute the program. Maybe also other versions work, but I do not guarantee...
+python==3.9.0
+mysql_connector==2.2.9
+psycopg2==2.9.6
+psycopg2_binary==2.9.5
+PyQt5==5.15.9
+PyYAML==6.0
+matplotlib==3.7.1
+numpy==1.25.2
+Pillow==9.5.0
+opencv-python==4.8.1
+scipy==1.11.1
+sklearn==1.3.0
+Pillow==9.5.0
+paramiko==3.1.0
+PyYAML==6.0
+pandas==2.1.3
+PyQT5==5.15.9
+csv==1.0
+
+# other imports
+subprocess
+array
+ntpath
+datetime
+shutil
+sys
+os
+glob
+math
+copy
+pathlib

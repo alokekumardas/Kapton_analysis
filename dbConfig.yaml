@@ -1,0 +1,10 @@
+db_database: postgres
+db_host: lx3bcms02.physik.rwth-aachen.de
+db_password: f7Sku_wsUtZPi5Afo6kuT2EAzQkrcwkPJKLzOLz02ZXvVqomZqa9hdkwQpKM_pxf
+db_port: '5432'
+db_type: postgres
+db_username: postgres
+ssh_db_imagePath: /home/data/AachenDetectorConstructionDatabase_data/data/kapton_metrology/
+ssh_host: lx3bcms02.physik.rwth-aachen.de
+ssh_locPKey: C:\Users\AdminCad\.ssh\id_ed25519
+ssh_user: cms
