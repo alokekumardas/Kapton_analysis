@@ -52,7 +52,7 @@ if __name__ == "__main__":
     
     # Define required packages and versions
     required_packages = {
-        "mysql-connector-python": "2.2.9",
+        "mysql-connector": "2.2.9",
         "psycopg2": "2.9.6",
         "psycopg2-binary": "2.9.5",
         "PyQt5": "5.15.9",
