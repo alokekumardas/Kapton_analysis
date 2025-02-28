@@ -60,7 +60,7 @@ if __name__ == "__main__":
         "matplotlib": "3.7.1",
         "numpy": "1.25.2",
         "Pillow": "9.5.0",
-        "opencv-python": "4.8.1",
+        "opencv-python": "4.8.1.78",
         "scipy": "1.11.1",
         "scikit-learn": "1.3.0",
         "paramiko": "3.1.0",
