@@ -892,16 +892,16 @@ class Scan:
             """
             if distBetween(initial_position1, self.template_parameters[i][0]) < 2000: #1000
                 first = i
-                print("first template found")
+                #print("first template found")
             elif distBetween(initial_position5, self.template_parameters[i][0]) < 2000:  #1000
                 fifth = i
-                print("fith template found")
+                #print("fith template found")
             elif distBetween(initial_position3, self.template_parameters[i][0]) < 2000:  #1000
                 third = i
-                print("third template found")
+                #print("third template found")
             elif distBetween(initial_position4, self.template_parameters[i][0]) < 2000:   #1000
                 forth = i
-                print("fourth template found")
+                #print("fourth template found")
 
         indices = (first, third, forth, fifth)
 
