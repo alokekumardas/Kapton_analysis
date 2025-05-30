@@ -136,11 +136,16 @@ class KaptonStrip:
         self.contour        = pic.contours[cnt_nb]
         self.area           = cv2.contourArea(self.contour)
         self.position, self.dimensions, self.rotation = cv2.minAreaRect(self.contour)
+        #print("variabletype test")
+        #print(type(self.contour))        
         self.dimensions     = (min(self.dimensions),max(self.dimensions))
+        self.edgecurved=[-1,-1] #remove it if you want shape determination is on
+        """
         if self.dimensions[1] >80.0: #shape determination only for long strips
             self.edgecurved = self.determine_shape() # new 13.1.25 (Nina) to find banana shape strips.
         else:
             self.edgecurved=[-1,-1]
+           """		
         if(self.dimensions[0]*self.dimensions[1]!=0):
             self.fitmatch = self.area/(self.dimensions[0]*self.dimensions[1])
         else:
@@ -762,6 +767,7 @@ class Scan:
         self.contours, self.hierarchy, self.templateContours, self.templateHierarchy = self.get_contourandhierarchy()
         self.contours, self.hierarchy = self.filtered_contours()
         print("Found Contours and Hierarchy!")
+        #print("Kapton pixel counts :{}".format(self.contours)) #test by aloke
         self.templateContoursAvailable  = (self.templateContours != False)
         self.contoursAvailable          = True
         #except:
@@ -783,6 +789,7 @@ class Scan:
                     templateDimensions_px = (max(templateDimensions_px), min(templateDimensions_px))
                     self.template_parameters.append([templatePosition_px, templateDimensions_px, templateRotation])
                     n_templates_found+=1
+                    print("numbr of template found")
                 if n_templates_found==4:
                     foundTemplateInCountours = True
                     break
@@ -790,17 +797,19 @@ class Scan:
                 self.scalingFactors = self.get_corrected_scalingFactor()
                 print("Templates found! Applying scaling factors {} along x and {} along y.".format(self.scalingFactors[0], self.scalingFactors[1]))
             else:
-                print("Did not find the template! Default scaling factor of 0.02116667 mm/dot is applied")
-            
+                print("Did not find the template! Default scaling factor of 0.02107728337236534 mm/dot in x, and 0.021168824476098913] mm/dot in y is applied")
+                
+            self.position_aloke, self.dimensions_aloke, self.rotation_aloke = cv2.minAreaRect(self.contours[5])
+            print("before applying scale factor the pixel size for kapton {}".format(self.dimensions_aloke))  # test by aloke
+            #print(type(self.contours),"before aplying SF")
             self.contours = [arr.astype(np.float32) * self.scalingFactors.astype(np.float32) for arr in self.contours]
-        
+            
 
 
         self.rel_path = Scanfilename
         if(self.contoursAvailable):
             self.kaptoncontours, self.kaptonstrips = self.get_Kaptoncontour_indices(kapton_type=kaptonType)
             print("Found {} strips...".format(len(self.kaptoncontours)))
-
             #self.circles = self.get_issue_circles()
             #self.show_single_residuals()
         
@@ -836,11 +845,35 @@ class Scan:
         initial_position3 = (4598, 6856)
         initial_position4 = (7871, 3886)
         """
+        """AAchen """
+        """
         initial_position1 = (5377, 435)
         initial_position3 = (5049, 8121)
         initial_position4 = (9153, 4393)
         initial_position5 = (513, 4745)
-
+        """
+        
+        """IIHE 1st set """
+        """
+        initial_position1 = (4832, 1382)
+        initial_position3 = (4880, 7264)
+        initial_position4 = (8272, 4048)
+        initial_position5 = (960, 4096)
+        """
+        """IIHE 2nd set """
+        """ 
+        initial_position1 = (4783, 1093) #4921, 4416
+        initial_position3 = (5004, 7414) #4992, 10688
+        initial_position4 = (8299, 3888)  #8256, 7184
+        initial_position5 = (750, 3900)  #750, 7129
+        """
+        """ rotated and cropped after placing along x"""
+        
+        initial_position1 = (9001,4425) #(840, 4625)
+        initial_position3 = (1878,4379) #(8531, 4625)
+        initial_position4 = (5371,7595) #(4900, 1230)
+        initial_position5 = (5232,1452) #(5072, 8640)
+		
 
         def distBetween(p1, p2):
             return np.sqrt((p1[0]-p2[0])**2 + (p1[1]-p2[1])**2)
@@ -857,14 +890,18 @@ class Scan:
             elif distBetween(initial_position4, self.template_parameters[i][0]) < 1000:
                 forth = i
             """
-            if distBetween(initial_position1, self.template_parameters[i][0]) < 1000:
+            if distBetween(initial_position1, self.template_parameters[i][0]) < 2000: #1000
                 first = i
-            elif distBetween(initial_position5, self.template_parameters[i][0]) < 1000:
+                print("first template found")
+            elif distBetween(initial_position5, self.template_parameters[i][0]) < 2000:  #1000
                 fifth = i
-            elif distBetween(initial_position3, self.template_parameters[i][0]) < 1000:
+                print("fith template found")
+            elif distBetween(initial_position3, self.template_parameters[i][0]) < 2000:  #1000
                 third = i
-            elif distBetween(initial_position4, self.template_parameters[i][0]) < 1000:
+                print("third template found")
+            elif distBetween(initial_position4, self.template_parameters[i][0]) < 2000:   #1000
                 forth = i
+                print("fourth template found")
 
         indices = (first, third, forth, fifth)
 
@@ -883,7 +920,8 @@ class Scan:
         print(str(kaptonconstants.templateDimensions4)+" : "+str(self.template_parameters[self.template_order()[2]][1])+" = "+str(scalingFactors4))
         print(str(kaptonconstants.templateDimensions5)+" : "+str(self.template_parameters[self.template_order()[3]][1])+" = "+str(scalingFactors5))
 
-        scaling_x = (scalingFactors3[0])#+scalingFactors1[0])/2
+        #scaling_x = (scalingFactors3[0]+scalingFactors1[0])/2 "in original code from aachen they are not using SF1"
+        scaling_x = (scalingFactors3[0]+scalingFactors1[0])/2
         scaling_y = (scalingFactors5[0]+scalingFactors4[0])/2
 
         scalingFactors = np.array([scaling_x, scaling_y])
@@ -974,6 +1012,7 @@ class Scan:
                 if(tmpStrip.fitmatch>0.2 and tmpStrip.dimensions[1]>kaptonconstants.nominal_stumpkaptonlength*0.5):
                     kaptoncontours.append(i)
                     kaptonstrips.append(tmpStrip)
+                    print("kapton_dimension:{}".format(tmpStrip.dimensions[1]))
 
         return self.ordered_numbering(kaptoncontours, kaptonstrips,kapton_type)
 

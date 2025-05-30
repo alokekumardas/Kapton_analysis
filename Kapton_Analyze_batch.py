@@ -185,7 +185,7 @@ class Analyze:
         temp_folder_curved = 'temp'
         new_folder_curved = save_folder+delim+'shape'
         if not os.path.exists(new_folder_curved):
-            os.makedirs(new_folder_curved)
+            os.makedirs(new_folder_curved)   
         if os.listdir(temp_folder_curved):
             for index, tempfile in enumerate(os.listdir(temp_folder_curved)):
                 temp_filepath = os.path.join(temp_folder_curved,tempfile)

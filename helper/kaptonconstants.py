@@ -33,9 +33,10 @@ defaultFilter_R = [235, 255]
 defaultFilter_G = [185, 210] 
 defaultFilter_B = [30, 65]
 """
-defaultFilter_R = [225, 255] 
+defaultFilter_R = [210, 255] 
 defaultFilter_G = [182, 255] 
-defaultFilter_B = [0, 95] #0
+#defaultFilter_B = [0, 95] #95 is from aachen
+defaultFilter_B = [0, 135] #140
 
 """
 defaultFilter_R = [240, 252] 
@@ -59,20 +60,39 @@ xTemplateFilter_R = [0, 80]
 xTemplateFilter_G = [0, 80]
 xTemplateFilter_B = [0, 80]
 '''
+""" original """
+"""
+yTemplateFilter_R = [0, 58]
+yTemplateFilter_G = [0, 58]
+yTemplateFilter_B = [0, 58]
+"""
+""" for IIHE"""
 yTemplateFilter_R = [0, 58]
 yTemplateFilter_G = [0, 58]
 yTemplateFilter_B = [0, 58]
 
+
 xTemplateFilter_R = [0, 78]
 xTemplateFilter_G = [0, 78]
 xTemplateFilter_B = [0, 78]
-
-
+"""
+##original from aachen
 templateDimensions1 = [95.6265, 9.784]
 #templateDimensions2 = [95.6405, 9.774] #not used
 templateDimensions3 = [95.688, 9.770]
 templateDimensions4 = [95.657, 9.784]
 templateDimensions5 = [95.659, 9.784]
+
+"""
+#By aloke from IIHE
+templateDimensions1 = [99.588, 12.690]
+#templateDimensions2 = [99.561, 12.690]
+templateDimensions3 = [99.561, 12.690]
+templateDimensions5= [99.739, 12.690]
+templateDimensions4 = [99.687, 12.690]
+
+
+
 
 
 plottingScale = 1
